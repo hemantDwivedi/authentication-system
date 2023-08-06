@@ -70,3 +70,14 @@ Once the application is running, you can test APIs in your [Postman](https://www
 - ```GET /api/v1/admin``` only accessible by ADMIN user.
 
 - To logout, make a ```GET``` request to ```/api/v1/logout```. It will logged out user and invalidate the JWT token.
+
+
+## Running Tests
+
+To run tests, run the following command
+
+```bash
+  mvn test
+```
+
+This command will execute all the unit tests in the project, and the test results will be displayed in the console.
