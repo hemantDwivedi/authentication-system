@@ -1,41 +1,52 @@
 package com.assignment.authenticationsystem.repository;
 
 import com.assignment.authenticationsystem.model.User;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    @BeforeEach
-    void setUp() {
+    @AfterEach
+    void tearDown() {
         userRepository.deleteAll();
     }
 
     @Test
-    void findByUsernameOrEmailTest() {
+    void findsUserThatExistsByUsernameOrEmail() {
         User user = getUser();
         userRepository.save(user);
-        User dbUser = userRepository.findByUsernameOrEmail("admin", "admin").orElse(null);
-        assertNotNull(dbUser);
-        assertEquals(user.getUsername(), dbUser.getUsername());
+        User expected = userRepository.findByUsernameOrEmail("admin", "admin").orElse(null);
+        assertNotNull(expected);
+        assertEquals(user.getUsername(), expected.getUsername());
+    }
+    @Test
+    void findsUserThatDoesNotExistsByUsernameOrEmail() {
+        String username = "admin";
+        String email = "admin@gmail.com";
+        User expected = userRepository.findByUsernameOrEmail(username, email).orElse(null);
+        assertNull(expected);
     }
 
     @Test
-    void existsByUsernameOrEmailTest() {
+    void checksWhenUserExistsByUsernameOrEmail() {
         User user = getUser();
         userRepository.save(user);
-        Boolean isUserExists = userRepository.existsByUsernameOrEmail("admin", "admin");
-        assertNotNull(isUserExists);
+        Boolean expected = userRepository.existsByUsernameOrEmail("admin", "admin");
+        assertNotNull(expected);
+    }
+    @Test
+    void checksWhenUserDoesNotExistsByUsernameOrEmail() {
+        String username = "admin";
+        String email= "admin@gmail.com";
+        Boolean expected = userRepository.existsByUsernameOrEmail(username, email);
+        assertEquals(expected, false);
     }
 
     private User getUser(){
