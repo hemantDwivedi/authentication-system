@@ -51,11 +51,11 @@ cd authentication-system
 ### Configure Database and Environment
 1. Create a new database named ```'authentication_system'``` in your MYSQL.
 
-2. Open the application.properties file located in the ```src/main/resources``` directory.
+2. Open project folder in IntelliJ IDEA and wait till to download all neccessary dependencies.
 
-3. Update the database connection properties (e.g., ```spring.datasource.url, spring.datasource.username, spring.datasource.password```) to match your database configuration.
+3. Open the ```application.properties``` file located in the ```src/main/resources``` directory.
 
-4. Open project folder in IntelliJ IDEA and wait till to download all neccessary dependencies.
+4. Update the database connection properties (e.g., ```spring.datasource.url, spring.datasource.username, spring.datasource.password```) to match your database configuration.
 
 5. Right Click on AuthenticationSystemApplication.java located in the ```src/main/java/com.assignment.authenticationsystem``` and run the applcation.
 
